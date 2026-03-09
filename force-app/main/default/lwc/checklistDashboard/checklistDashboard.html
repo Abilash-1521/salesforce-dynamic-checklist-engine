@@ -1,0 +1,19 @@
+<template>
+
+    <lightning-card title="Checklist Dashboard">
+
+        <div class="slds-p-around_medium">
+
+            <template for:each={checklists} for:item="item">
+
+                <p key={item.Id}>
+                    {item.Name} - {item.Stage__c}
+                </p>
+
+            </template>
+
+        </div>
+
+    </lightning-card>
+
+</template>

@@ -1,24 +1,30 @@
 # Salesforce dynamic-checklist-engine
+The Dynamic Checklist Engine is a configurable automation framework built on Salesforce using Apex, Triggers, Flows and Lightning Web Components (LWC).
 
+The engine dynamically generates operational checklists and tasks based on product-driven templates when an Opportunity is converted into downstream service objects such as Product Package and Treasury Service.
 
-## Overview
+The system ensures that operational tasks, checklist stages and related business objects remain synchronized throughout the lifecycle.
+## Dynamic Checklist Engine Concept
 
-This project implements an automated operational checklist management system built using **Salesforce Apex, Triggers, Flows, and Lightning Web Components (LWC)**.
+The engine uses a **template driven architecture**.
 
-When an **Opportunity is converted into a Product Package and Treasury Service**, the system automatically generates a **product-specific operational checklist**.
+Instead of hardcoding business processes, the system allows administrators to configure:
 
-The checklist is created based on predefined **Checklist Templates**, which generate operational **Tasks** using **Task Templates**.
+* Checklist Templates
+* Task Templates
+* Product mappings
+* Stage progression logic
 
-The system ensures that task completion and stage progression remain synchronized across multiple related objects including:
+This allows the same engine to support multiple business processes such as:
 
-* Opportunity
-* Product Package
-* Treasury Service
-* Checklist
+* Treasury onboarding
+* Client onboarding
+* Product activation
+* Compliance workflows
+* Operations processing
 
-This automation ensures operational consistency, visibility, and proper task tracking during treasury service onboarding.
+The current implementation demonstrates the engine using a **Treasury Service onboarding workflow**.
 
----
 
 ## Business Problem
 
@@ -63,6 +69,19 @@ This system automates checklist generation, task assignment, and stage synchroni
 * **Task_Template__c**
 
 ---
+## Scalability
+
+The Dynamic Checklist Engine is designed for scalability.
+
+New workflows can be supported by simply creating new:
+
+- Checklist Templates
+- Task Templates
+- Product mappings
+
+No Apex code changes are required.
+
+This allows organizations to rapidly configure operational processes without development effort.
 
 ## Automation Flow
 
@@ -184,6 +203,66 @@ Checklist Completed
 ```
 
 ---
+## Project Demo
+
+Example Scenario
+
+1. Sales user creates an **Opportunity**.
+2. A **Product** is selected for the Opportunity.
+3. The Opportunity is converted into:
+
+- Product Package
+- Treasury Service
+
+4. The system identifies the Product.
+
+5. A **Checklist Template** mapped to that Product is retrieved.
+
+6. A **Checklist record** is created and linked to:
+
+- Opportunity
+- Product Package
+- Treasury Service
+
+7. **Task Templates generate operational tasks**.
+
+8. Tasks are assigned to operations teams.
+
+9. When users update task status:
+
+- Checklist stage progresses
+- Opportunity stage updates
+- Product Package stage updates
+- Treasury Service stage updates
+
+10. Once all tasks are completed:
+
+Checklist status becomes **Completed**.
+## Apex Architecture Pattern
+
+This project follows an enterprise Apex architecture pattern.
+
+Trigger Layer
+
+Triggers only handle record events and delegate logic to handler classes.
+
+Handler Layer
+
+Trigger handlers control execution flow and enforce separation of concerns.
+
+Service Layer
+
+Service classes contain business logic for:
+
+- checklist generation
+- task assignment
+- stage synchronization
+
+This architecture ensures:
+
+- scalability
+- maintainability
+- reusable logic
 
 ## Repository Structure
 
@@ -244,6 +323,15 @@ Checklist Completed
 * Integration with external treasury systems
 
 ---
+## Skills Demonstrated
+
+Salesforce Apex Development  
+Trigger Framework Implementation  
+Lightning Web Components (LWC)  
+SOQL Query Optimization  
+Business Process Automation  
+Enterprise Architecture Design  
+Multi-object Data Synchronization
 
 ## Author
 
